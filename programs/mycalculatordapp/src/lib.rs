@@ -15,6 +15,11 @@ pub mod mycalculatordapp {
         Ok(())
 
     }
+
+    pub fn add(ctx: Context<Addition>, num1: i64, num2: i64) -> ProgramResult{
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 + num2;
+    }
  
 }
 
@@ -26,6 +31,12 @@ pub struct Create<'info>{
     pub user: Signer<'info>,
     pub system_program:  Program<'info,System>
 
+}
+
+#[derive(Accounts)]
+pub struct Addition<'info>{
+    #[account(mut)]
+    pub calculator: Accounts<'info, Calculator>
 }
 
 #[account]
