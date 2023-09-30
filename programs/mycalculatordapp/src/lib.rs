@@ -1,12 +1,14 @@
 use anchor_lang::prelude::*;
-
+use anchor_lang::solana_program::entrypoint::ProgramResult;
 declare_id!("FEZtVUk1M5NQQaJidJauwtJb4xdyDUpNxA1ckX3Dkjy4");
 
 #[program]
 pub mod mycalculatordapp {
+    
+
     use super::*;
 
-    pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult{
+    pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult {
 
         let calculator = &mut ctx.accounts.calculator;
         calculator.greeting = init_message;
@@ -16,7 +18,7 @@ pub mod mycalculatordapp {
  
 }
 
-#derive(Accounts)
+#[derive(Accounts)]
 pub struct Create<'info>{
     #[account(init, payer=user,space=264)]
     pub calculator: Account<'info,Calculator>,
@@ -28,7 +30,7 @@ pub struct Create<'info>{
 
 #[account]
 pub struct Calculator{
-    pub greting : String,
+    pub greeting : String,
     pub result: i64,
     pub remainder: i64
 }
