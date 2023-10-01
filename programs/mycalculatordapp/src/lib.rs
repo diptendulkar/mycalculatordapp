@@ -19,6 +19,7 @@ pub mod mycalculatordapp {
     pub fn add(ctx: Context<Addition>, num1: i64, num2: i64) -> ProgramResult{
         let calculator = &mut ctx.accounts.calculator;
         calculator.result = num1 + num2;
+        Ok(())
     }
  
 }
@@ -32,11 +33,10 @@ pub struct Create<'info>{
     pub system_program:  Program<'info,System>
 
 }
-
 #[derive(Accounts)]
 pub struct Addition<'info>{
     #[account(mut)]
-    pub calculator: Accounts<'info, Calculator>
+    pub calculator: Account<'info, Calculator>
 }
 
 #[account]
