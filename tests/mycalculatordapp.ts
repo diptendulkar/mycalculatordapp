@@ -31,4 +31,15 @@ describe('mycalculatordapp',()=>{
         const account = await program.account.calculator.fetch(calculator.publicKey)
         assert.ok(account.result.eq(new anchor.BN(5)))
     })
+
+
+    it('Sub two numbers', async()=> {
+        await program.rpc.sub(new anchor.BN(10), new anchor.BN(3),{
+            accounts:{
+                calculator: calculator.publicKey
+            }
+        })
+        const account = await program.account.calculator.fetch(calculator.publicKey)
+        assert.ok(account.result.eq(new anchor.BN(7)))
+    })
 })
